@@ -14,6 +14,7 @@ BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  meson
 BuildRequires:  pkgconfig
 BuildRequires:  xfce4-dev-tools >= 4.19.2
+BuildRequires:  pkgconfig(wlr-protocols)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gtk-layer-shell-0)
 BuildRequires:  pkgconfig(wayland-client)
