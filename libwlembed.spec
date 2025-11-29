@@ -1,5 +1,8 @@
+%define libname %mklibname wlembed
+%define devname %mklibname -d wlembed
+%define girname %mklibname wlembed-gir
+
 %define git_id			4d37dc9da9a1f699b86d4e6b05f4619b8eee4ee8
-%define wlr_protocols_git_id	a5028afbe4a1cf0daf020c4104c1565a09d6e58a
 
 Name:           libwlembed
 Version:        0.0.0
@@ -28,41 +31,29 @@ libwlembed is a Wayland compositor library that allows you to embed
 surfaces from one application into another by way of what's called an
 "embedded compositor".
 
-%package -n %{name}-0-0
+%package -n %{libname}
 Summary:        Library for Wayland embedded compositor
 
-%description -n %{name}-0-0
+%description -n %{libname}
 libwlembed is a Wayland compositor library that allows you to embed
 surfaces from one application into another by way of what's called an
 "embedded compositor".
 
-%package -n %{name}-gtk3-0-0
-Summary:        Library for Wayland embedded compositor
-
-%description -n %{name}-gtk3-0-0
-libwlembed is a Wayland compositor library that allows you to embed
-surfaces from one application into another by way of what's called an
-"embedded compositor".
-
-%package devel
+%package -n %{devname}
 Summary:        Development files for libwlembed and libwlembed-gtk3
-Requires:       %{name}-0-0 = %{version}
-Requires:       %{name}-gtk3-0-0 = %{version}
+Requires:	%{libname} = %{EVRD}
+Requires:	%{girname} = %{EVRD}
 
-%description devel
+%description -n %{devname}
 This package contains development files for libwlembed and libwlembed-gtk3.
 
-%package -n typelib-1_0-Libwlembed-0
+%package -n %{girname}
 Summary:        Introspection bindings for libwlembed
+Requires:	%{libname} = %{EVRD}
 
-%description -n typelib-1_0-Libwlembed-0
+%description -n %{girname}
 This package provides the GObject Introspection bindings for libwlembed.
 
-%package -n typelib-1_0-Libxfce4libwlembed_gtk3-0
-Summary:        Introspection bindings for libwlembed-gtk3
-
-%description -n typelib-1_0-Libxfce4libwlembed_gtk3-0
-This package provides the GObject Introspection bindings for libwlembed-gtk3.
 
 %prep
 %autosetup -p1 -n %{name}-%{git_id}
@@ -75,7 +66,7 @@ This package provides the GObject Introspection bindings for libwlembed-gtk3.
 %install
 %meson_install
 
-%files devel
+%files -n %{devname}
 %doc README.md
 %license LICENSE
 %{_includedir}/libwlembed-0
@@ -84,14 +75,10 @@ This package provides the GObject Introspection bindings for libwlembed-gtk3.
 %{_libdir}/pkgconfig/*.pc
 %{_datadir}/gir-1.0/*.gir
 
-%files -n libwlembed-0-0
+%files -n %{libname}
 %{_libdir}/libwlembed-0.so.*
-
-%files -n libwlembed-gtk3-0-0
 %{_libdir}/libwlembed-gtk3-0.so.*
 
-%files -n typelib-1_0-Libwlembed-0
+%files -n %{girname}
 %{_libdir}/girepository-1.0/Libwlembed-0.0.typelib
-
-%files -n typelib-1_0-Libxfce4libwlembed_gtk3-0
 %{_libdir}/girepository-1.0/Libxfce4libwlembed_gtk3-0.0.typelib
